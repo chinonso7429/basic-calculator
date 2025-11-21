@@ -1,58 +1,85 @@
+let firstValue = null;
 let lastOperator = null;
-function calculate(operator) {
-const num1 = document.getElementById("num1").value;
-const num2 = document.getElementById("num2").value;
-const resultDiv = document.getElementById("result");
+let shouldResetDisplay = false;
 
-if (num1 === "" || num2 === "" || isNaN(num1) ||isNaN(num2)) {
-resultDiv.innerHTML = "<span class='error'> ⚠ Please enter valid numbers!</span>";
-return;}
+const display = document.getElementById("num");
+const expressionDisplay = document.getElementById("expression");
 
+for (let i = 0; i <= 9; i++) {
+document.getElementById("num" + i).addEventListener("click",() => number(i));}
+document.getElementById("dot").addEventListener("click",() => number("."));
+document.getElementById("plusMinus").addEventListener("click", plusMinus);
+document.getElementById("percent").addEventListener("click", percent);
+document.getElementById("clearAll").addEventListener("click",clearAll);
+document.getElementById("deleteLast").addEventListener("click",deleteLast);
+document.getElementById("plus").addEventListener("click",() => setOperator("+"));
+document.getElementById("minus").addEventListener("click",() => setOperator("-"));
+document.getElementById("multiply").addEventListener("click",() => setOperator("*"));
+document.getElementById("divide").addEventListener("click",() => setOperator("/"));
+document.getElementById("equals").addEventListener("click", equals);
 
-const n1 = parseFloat(num1);
-const n2 = parseFloat(num2);
+function number(num) {
+if (display.value ==="0" || shouldResetDisplay){
+display.value = num;
+shouldResetDisplay = false;}
+else{
+display.value += num;}
+}
 
-let result;
+function setOperator(operator) {
+const currentValue = parseFloat(display.value);
+if (firstValue === null) {
+firstValue = currentValue;}
+else if (lastOperator) {
+firstValue = calculate(firstValue, currentValue, lastOperator);
+display.value = firstValue;}
+ lastOperator = operator;
+ shouldResetDisplay = true;
+ expressionDisplay.textContent = firstValue + " " + operator;
+}
 
-switch (operator) {
-case '+':
-result = n1 + n2;
-break;
-case '-':
-result = n1 - n2;
-break;
-case '*':
-result = n1 * n2;
-break;
-case '/':
-if (n2 === 0) {
-resultDiv.innerHTML = "<span class='error'>Error:Division by zero!</span>";
-return;}
-result = n1 / n2;
-break;
-default:
-resultDiv.innerHTML = "<span class='error'>Error:Unknown operation!</span>";
-return;}
+function calculate(a, b, operator) {
+ switch (operator) {
+ case "+": return a + b;
+  case "-": return a - b;
+ case "*": return a * b;
+ case "/": return  b === 0 ? "Error" : a / b;
+ default: return b;
+ }
+ }
 
-resultDiv.innerHTML = `Result: ${result}`;
+ function equals() {
+ if (!lastOperator) return;
+ const secondValue = parseFloat(display.value);
+ const result = calculate(firstValue, secondValue, lastOperator);
+ display.value = result;
+ expressionDisplay.textContent = firstValue + " " + lastOperator + " " + secondValue + " =";
+ firstValue = result;
+ lastOperator = null;
+ shouldResetDisplay = true;
+ }
 
-lastOperator = operator;}
+ function percent() {
+ display.value = parseFloat(display.value) / 100;
+ shouldResetDisplay = true;
+ }
 
-document.addEventListener("keydown", (event) => {
-const key = event.key;
+ function plusMinus() {
+ display.value = parseFloat(display.value) * -1;
+ }
 
+ function clearAll() {
+ display.value = "0";
+ firstValue = null;
+ lastOperator = null;
+ shouldResetDisplay = false;
+ }
 
-if (key === "+" || key === "-" || key === "*" || key ==="/"){
-calculate(key);}
-else if (key ==="Enter" && lastOperator){
-calculate(lastOperator);}
-})
-
-
-
-
-
-
-
+ function deleteLast() {
+ let current = display.value.toString();
+ if (current === "0") return;
+ current = current.slice(0, -1);
+ display.value = current === "" ? "0" : current;
+ }
 
 

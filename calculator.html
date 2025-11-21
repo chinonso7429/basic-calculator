@@ -12,18 +12,41 @@
 <body>
 <div class="container">
     <div class="calculator">
-<h2>Basic Calculator</h2>
-        <input type="text" id="num1" placeholder="Enter first number">
-                  <input type="text" id="num2" placeholder="Enter second number">
-<div class="buttons">
+        <h2>Standard Calculator</h2>
+        <div class="display">
+        <div id="expression" class="=expression"></div>
+        <input type="text" id="num" value="0"  readonly>
+            </div>
+<ul class="buttons">
+            <li id="deleteLast">&#x232B;</li>
+                <li id="clearAll">AC</li>
+             <li id="percent">%</li>
+            <li id="divide" class="operator">&#247;</li>
 
-        <button onclick="calculate('+')">+</button>
-            <button onclick="calculate('-')">-</button>
-        <button onclick="calculate('*')" >x</button>
-        <button onclick="calculate('/')" >/</button>
-</div>
-            <div id="result"></div>
-       </div>
+             <li id="num7">7</li>
+        <li id="num8">8</li>
+        <li id="num9">9</li>
+            <li id="multiply" class="operator">x</li>
+
+               <li id="num4">4</li>
+        <li id="num5">5</li>
+            <li id="num6">6</li>
+                <li id="minus" class="operator">-</li>
+
+            <li id="num1">1</li>
+            <li id="num2">2</li>
+            <li id="num3">3</li>
+        <li id="plus" class="operator">+</li>
+
+     <li id="plusMinus">+/-</li>
+        <li id="num0">0</li>
+    <li id="dot">.</li>
+    <li id="equals" class="operator">=</li>
+
+</ul>
+          </div>
+
+
        </div>
 
 
