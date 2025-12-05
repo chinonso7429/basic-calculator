@@ -2,6 +2,16 @@ let firstValue = null;
 let lastOperator = null;
 let shouldResetDisplay = false;
 
+function historyFeature(expression, result) {
+const historyContainer = document.getElementById("history");
+const update = document.createElement("div");
+update.textContent = `${expression} = ${result}`;
+historyContainer.prepend(update);
+}
+document.getElementById("toggleHistory").addEventListener("click", function() {
+document.getElementById("history").classList.toggle("hidden");
+})
+
 const display = document.getElementById("num");
 const expressionDisplay = document.getElementById("expression");
 
@@ -17,6 +27,7 @@ document.getElementById("minus").addEventListener("click",() => setOperator("-")
 document.getElementById("multiply").addEventListener("click",() => setOperator("*"));
 document.getElementById("divide").addEventListener("click",() => setOperator("/"));
 document.getElementById("equals").addEventListener("click", equals);
+
 
 function number(num) {
 if (display.value ==="0" || shouldResetDisplay){
@@ -52,6 +63,8 @@ function calculate(a, b, operator) {
  if (!lastOperator) return;
  const secondValue = parseFloat(display.value);
  const result = calculate(firstValue, secondValue, lastOperator);
+ const expression = `${firstValue} ${lastOperator} ${secondValue}`;
+  historyFeature(expression, result);
  display.value = result;
  expressionDisplay.textContent = firstValue + " " + lastOperator + " " + secondValue + " =";
  firstValue = result;
@@ -81,5 +94,7 @@ function calculate(a, b, operator) {
  current = current.slice(0, -1);
  display.value = current === "" ? "0" : current;
  }
+
+
 
 

@@ -36,6 +36,18 @@ background-color: white;
  flex-direction: column;
  justify-content: flex-end;}
 
+.history {
+font-size: 30px;
+font-weight: bold;
+position: absolute;
+top: 10px;
+left: 10px;
+cursor: pointer;}
+
+.hidden {
+display: none;
+}
+
 .expression {
 min-height: 18px;
 color: #aaa;
