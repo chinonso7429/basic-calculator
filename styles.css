@@ -48,6 +48,42 @@ cursor: pointer;}
 display: none;
 }
 
+.dark-toggle{
+font-size: 30px;
+font-weight: bold;
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
+}
+
+.calculator.dark-mode {
+background: #000;
+color: white;
+}
+
+
+.calculator.dark-mode input {
+background: #000;
+color: white;
+border: 1px solid #555;}
+
+.calculator.dark-mode #expression{
+background-color: #000;
+color: white;}
+
+.calculator.dark-mode button {
+background: #2c2c2c;
+color: black;}
+
+.calculator.dark-mode li {
+background-color: #000;
+color: white;}
+
+.calculator.dark-mode li.operator {
+background-color: #000;
+color: white;}
+
 .expression {
 min-height: 18px;
 color: #aaa;

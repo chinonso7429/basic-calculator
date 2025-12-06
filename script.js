@@ -8,9 +8,22 @@ const update = document.createElement("div");
 update.textContent = `${expression} = ${result}`;
 historyContainer.prepend(update);
 }
+
 document.getElementById("toggleHistory").addEventListener("click", function() {
 document.getElementById("history").classList.toggle("hidden");
+});
+
+const darkBtn = document.getElementById("dark-toggle");
+const calc = document.getElementById("calculator");
+darkBtn.addEventListener("click", () => {
+calc.classList.toggle("dark-mode");
+if (calc.classList.contains("dark-mode")) {
+darkBtn.innerHTML = "&#9728;";
+} else {
+darkBtn.innerHTML = "&#127769;";}
 })
+
+
 
 const display = document.getElementById("num");
 const expressionDisplay = document.getElementById("expression");
@@ -79,7 +92,7 @@ function calculate(a, b, operator) {
 
  function plusMinus() {
  display.value = parseFloat(display.value) * -1;
- }
+}
 
  function clearAll() {
  display.value = "0";

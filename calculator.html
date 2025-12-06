@@ -9,17 +9,18 @@
 
             <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body >
 <div class="container">
-    <div class="calculator">
+    <div id="calculator" class="calculator">
         <h2>Standard Calculator</h2>
         <div id="historyFeature">
-        <div id="toggleHistory" class="history">&#9776;</div>
+        <button id="toggleHistory" class="history">&#9776;</button>
             <div id="history" class="hidden"></div>
             </div>
         <div class="display">
         <div id="expression" class="=expression"></div>
-        <input type="text" id="num" value="0" readonly >
+                    <button id="dark-toggle" class="dark-toggle">&#127769;</button>
+        <input type="text" id="num" value="0" class="screen" readonly >
             </div>
 <ul class="buttons">
             <li id="deleteLast">&#x232B;</li>
