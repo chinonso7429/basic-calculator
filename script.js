@@ -7,7 +7,24 @@ const historyContainer = document.getElementById("history");
 const update = document.createElement("div");
 update.textContent = `${expression} = ${result}`;
 historyContainer.prepend(update);
+let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+history.unshift({expression,result});
+localStorage.setItem("calcHistory", JSON.stringify(history));
 }
+
+function loadHistory() {
+const historyContainer = document.getElementById("history");
+let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+history.forEach(item => {
+const update = document.createElement("div");
+update.textContent = `${item.expression} = ${item.result}`;
+historyContainer.prepend(update);
+});
+}
+
+function saveCurrentState() {
+localStorage.setItem("savedExpression", expressionDisplay.innerText);
+localStorage.setItem("savedInput", display.value);}
 
 document.getElementById("toggleHistory").addEventListener("click", function() {
 document.getElementById("history").classList.toggle("hidden");
@@ -22,8 +39,6 @@ darkBtn.innerHTML = "&#9728;";
 } else {
 darkBtn.innerHTML = "&#127769;";}
 })
-
-
 
 const display = document.getElementById("num");
 const expressionDisplay = document.getElementById("expression");
@@ -48,6 +63,7 @@ display.value = num;
 shouldResetDisplay = false;}
 else{
 display.value += num;}
+saveCurrentState();
 }
 
 function setOperator(operator) {
@@ -60,6 +76,7 @@ display.value = firstValue;}
  lastOperator = operator;
  shouldResetDisplay = true;
  expressionDisplay.textContent = firstValue + " " + operator;
+ saveCurrentState();
 }
 
 function calculate(a, b, operator) {
@@ -70,6 +87,7 @@ function calculate(a, b, operator) {
  case "/": return  b === 0 ? "Error" : a / b;
  default: return b;
  }
+ saveCurrentState();
  }
 
  function equals() {
@@ -83,15 +101,18 @@ function calculate(a, b, operator) {
  firstValue = result;
  lastOperator = null;
  shouldResetDisplay = true;
+ saveCurrentState();
  }
 
  function percent() {
  display.value = parseFloat(display.value) / 100;
  shouldResetDisplay = true;
+ saveCurrentState();
  }
 
  function plusMinus() {
  display.value = parseFloat(display.value) * -1;
+ saveCurrentState();
 }
 
  function clearAll() {
@@ -99,6 +120,7 @@ function calculate(a, b, operator) {
  firstValue = null;
  lastOperator = null;
  shouldResetDisplay = false;
+ saveCurrentState();
  }
 
  function deleteLast() {
@@ -106,8 +128,16 @@ function calculate(a, b, operator) {
  if (current === "0") return;
  current = current.slice(0, -1);
  display.value = current === "" ? "0" : current;
+ saveCurrentState();
  }
 
+loadHistory();
 
+window.addEventListener("load", () => {
+const exp = localStorage.getItem("savedExpression");
+const inp = localStorage.getItem("savedInput");
+if (exp !== null) expressionDisplay.innerText = exp;
+if (inp !== null) display.value = inp;
+})
 
 
